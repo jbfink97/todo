@@ -37,8 +37,8 @@
 #sidebar {
     display: flex;
     flex-direction: column;
-    padding: 2vh 3vw;
-    row-gap: 2vh;
+    padding: 3vh 3vw;
+    row-gap: 3vh;
     background-color: lightgrey;
 }
 
@@ -49,6 +49,6 @@
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 4fr;
     column-gap: 1vw;
 }

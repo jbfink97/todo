@@ -1,3 +1,5 @@
+import sidebarInfo from "./sidebarinfo";
+
 export default function initialPage() {
 
     // Select content div to elements to and create header
@@ -17,15 +19,14 @@ export default function initialPage() {
     main.appendChild(sidebar);
 
     // Adding info to sidebar
-    const all = document.createElement('div');
-    all.id = 'all';
-    all.classList.add('grid');
-    const allPic = document.createElement('div');
-    allPic.textContent = 'pic';
-    const allText = document.createElement('div');
-    allText.textContent = 'All items';
-    all.appendChild(allPic);
-    all.appendChild(allText);
+    const all = sidebarInfo('all', 'All items');
     sidebar.appendChild(all);
+
+    const today = sidebarInfo('today', 'Due today');
+    sidebar.appendChild(today);
+
+    const thisWeek = sidebarInfo('thisWeek', 'Items due within a week');
+    sidebar.appendChild(thisWeek);
+
 
 }
