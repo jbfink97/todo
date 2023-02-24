@@ -1,6 +1,4 @@
-const body = document.getElementById('content');
-const test = document.createElement('div');
-test.textContent = 'this is a test';
-body.appendChild(test);
+import './style.css';
+import initialPage from './initialPage';
 
-console.log('another test');
+initialPage();
