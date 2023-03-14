@@ -1,6 +1,7 @@
 import './style.css';
 import initialPage from './initialPage';
 
-export let projects = [];
-export let tasks = [];
+let projects = [];
+let tasks = [];
+export {projects, tasks}
 initialPage();

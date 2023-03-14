@@ -49,8 +49,8 @@ export default function initialPage() {
     defaultProjectBtn.type = 'button';
     defaultProjectBtn.textContent = 'Default';
     defaultProjectBtn.id = 'Default';
-    //const defaultProject = new Project('Default', 0);
-    //projects.push(defaultProject);
+    const defaultProject = new Project('Default', 0);
+    projects.push(defaultProject);
     //defaultProjectBtn.addEventListener('click', )
 
     const deleteDefaultProjectBtn = document.createElement('button');
