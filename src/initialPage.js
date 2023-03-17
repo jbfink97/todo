@@ -1,5 +1,6 @@
 import {Task, Project} from './classes';
 import {tasks, projects} from './index';
+import{addProject} from './functions';
 
 export default function initialPage() {
     const content = document.getElementById('content');
@@ -24,8 +25,8 @@ export default function initialPage() {
     projectDisplay.id = 'projectDisplay';
     main.appendChild(projectDisplay);
 
-    const newProjectDiv = document.createElement('form');
-    newProjectDiv.id = 'newProjectDiv';
+    const newProjectForm = document.createElement('form');
+    newProjectForm.id = 'newProjectForm';
     const projectLabel = document.createElement('label');
     projectLabel.htmlFor = 'newProjectInput';
     projectLabel.textContent = 'Add a new project';
@@ -35,12 +36,12 @@ export default function initialPage() {
     input.placeholder = 'New project name';
 
     const newProjectBtn = document.createElement('button');
-    newProjectBtn.type = 'submit'; ///might need to change this to button. be sure to add prevent default
+    newProjectBtn.type = 'button'; ///might need to change this to button. be sure to add prevent default
     newProjectBtn.textContent = 'Add';
     newProjectBtn.htmlFor = 'newProjectInput';
-    // newProjectBtn.addEventListener('click', )
-    newProjectDiv.append(projectLabel, input, newProjectBtn);
-    sidebar.append(newProjectDiv);
+    newProjectBtn.addEventListener('click', addProject)
+    newProjectForm.append(projectLabel, input, newProjectBtn);
+    sidebar.append(newProjectForm);
 
     const defaultProjectDiv = document.createElement('div');
     defaultProjectDiv.classList.add('projectDiv');
