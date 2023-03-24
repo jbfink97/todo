@@ -15,31 +15,42 @@ function addProject() {
         projects.push(newProject);
         let projectList = document.getElementById('projectList');
         projectList.textContent = '';
-
-        for (const project of projects) {
-            const projectDiv = document.createElement('div');
-            projectDiv.classList.add('project Div');
-
-            const projectButton = document.createElement('button');
-            projectButton.type = 'button';
-            projectButton.textContent = project.name;
-            projectButton.id = project;
-
-            projectButton.addEventListener('click', () => {
-                //renderDisplay(project.name)
-            });
-            projectDiv.appendChild(projectButton);
-
-            const deleteProjectButton = document.createElement('button');
-            deleteProjectButton.type = 'button';
-            deleteProjectButton.textContent = 'Delete Project';
-            deleteProjectButton.addEventListener('click', () => {
-                projects.splice(project.index, 1);
-                //renderProjects();
-            })
-        }
+        renderProjects();
     }
     document.getElementById('newProjectForm').reset();
 }
 
-export {addProject}
+function renderProjects() {
+    const projectList = document.getElementById('projectList');
+    projectList.textContent = '';
+    for (let i = 0; i < projects.length; i++) {
+        projects[i].index = i;
+    }
+
+    for (const project of projects) {
+        const projectDiv = document.createElement('div');
+        projectDiv.classList.add('projectDiv');
+
+        const projectButton = document.createElement('button');
+        projectButton.type = 'button';
+        projectButton.id = project.name;
+        projectButton.classList.add('button');
+        projectButton.textContent = project.name;
+        // projectButton.addEventListener('click', () => {
+        //     renderDisplay(project.name);
+        // })
+        
+        const deleteProjectButton = document.createElement('button');
+        deleteProjectButton.textContent = 'Delete Project';
+        deleteProjectButton.type = 'button';
+        deleteProjectButton.addEventListener('click', () => {
+            projects.splice(project.index, 1);
+            renderProjects();
+            //showAll();
+        })
+        projectDiv.append(projectButton, deleteProjectButton);
+        projectList.appendChild(projectDiv);
+    }
+}
+
+export {addProject, renderProjects}

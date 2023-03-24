@@ -1,6 +1,6 @@
 import {Task, Project} from './classes';
 import {tasks, projects} from './index';
-import{addProject} from './functions';
+import{addProject, renderProjects} from './functions';
 
 export default function initialPage() {
     const content = document.getElementById('content');
@@ -42,31 +42,17 @@ export default function initialPage() {
     newProjectBtn.addEventListener('click', addProject)
     newProjectForm.append(projectLabel, input, newProjectBtn);
     sidebar.append(newProjectForm);
-
-    const defaultProjectDiv = document.createElement('div');
-    defaultProjectDiv.classList.add('projectDiv');
-
-    const defaultProjectBtn = document.createElement('button');
-    defaultProjectBtn.type = 'button';
-    defaultProjectBtn.textContent = 'Default';
-    defaultProjectBtn.id = 'Default';
+    
     const defaultProject = new Project('Default', 0);
     projects.push(defaultProject);
-    //defaultProjectBtn.addEventListener('click', )
-
-    const deleteDefaultProjectBtn = document.createElement('button');
-    deleteDefaultProjectBtn.type = 'button';
-    deleteDefaultProjectBtn.textContent = 'Delete Project';
-    //deleteDefaultProjectBtn.addEventListener('click',)
-
-    defaultProjectDiv.append(defaultProjectBtn, deleteDefaultProjectBtn);
-    projectList.append(defaultProjectDiv);
+    sidebar.append(projectList);
+    renderProjects();
 
     const showAllBtn = document.createElement('button');
     showAllBtn.type = 'button';
     showAllBtn.textContent = 'Show All Projects';
     //showAllBtn.addEventListener('click',)
 
-    sidebar.append(projectList, showAllBtn);
+    sidebar.append(showAllBtn);
 
 }
