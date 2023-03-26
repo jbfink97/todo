@@ -1,6 +1,6 @@
 import {Task, Project} from './classes';
 import {tasks, projects} from './index';
-import{addProject, renderProjects} from './functions';
+import{addProject, renderProjects, renderDisplay} from './functions';
 
 export default function initialPage() {
     const content = document.getElementById('content');
@@ -42,11 +42,10 @@ export default function initialPage() {
     newProjectBtn.addEventListener('click', addProject)
     newProjectForm.append(projectLabel, input, newProjectBtn);
     sidebar.append(newProjectForm);
-    
+
     const defaultProject = new Project('Default', 0);
     projects.push(defaultProject);
     sidebar.append(projectList);
-    renderProjects();
 
     const showAllBtn = document.createElement('button');
     showAllBtn.type = 'button';
@@ -54,5 +53,8 @@ export default function initialPage() {
     //showAllBtn.addEventListener('click',)
 
     sidebar.append(showAllBtn);
+    renderProjects();
+    renderDisplay(projects[0].name);
+
 
 }

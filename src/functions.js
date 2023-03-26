@@ -36,9 +36,9 @@ function renderProjects() {
         projectButton.id = project.name;
         projectButton.classList.add('button');
         projectButton.textContent = project.name;
-        // projectButton.addEventListener('click', () => {
-        //     renderDisplay(project.name);
-        // })
+        projectButton.addEventListener('click', () => {
+            renderDisplay(project.name);
+        })
         
         const deleteProjectButton = document.createElement('button');
         deleteProjectButton.textContent = 'Delete Project';
@@ -46,6 +46,9 @@ function renderProjects() {
         deleteProjectButton.addEventListener('click', () => {
             projects.splice(project.index, 1);
             renderProjects();
+            if (document.getElementById('currentProject').classList.contains(project.name)) {
+                renderDisplay(projects[0].name);
+            }
             //showAll();
         })
         projectDiv.append(projectButton, deleteProjectButton);
@@ -53,4 +56,14 @@ function renderProjects() {
     }
 }
 
-export {addProject, renderProjects}
+function renderDisplay(name) {
+    const projectDisplay = document.getElementById('projectDisplay');
+    projectDisplay.textContent = '';
+    const currentProject = document.createElement('div');
+    currentProject.id = 'currentProject'; //??
+    currentProject.textContent = `Project: ${name}`;
+    currentProject.classList = name;
+    projectDisplay.append(currentProject);
+}
+
+export {addProject, renderProjects, renderDisplay}

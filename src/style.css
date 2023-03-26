@@ -71,8 +71,8 @@ input {
     gap: 1vh 1vw;
 }
 
-/* #projectList {
-    display: grid;
-    padding-top: 1vh;
-    grid-template-columns: 1fr;
-} */
+#currentProject,
+#allProjects {
+    padding-bottom: 1vh;
+    border-bottom: 2px solid black;
+}
