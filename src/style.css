@@ -75,4 +75,26 @@ input {
 #allProjects {
     padding-bottom: 1vh;
     border-bottom: 2px solid black;
+    font-size: 2rem;
+}
+
+#newTaskForm {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr;
+    column-gap: 1vw;
+    padding-top: 2vh;
+}
+
+#newTaskForm > div {
+    display: flex;
+    flex-direction: column;
+}
+
+select, 
+input {
+    padding: 1vh 0vh;
+}
+
+.complete {
+    background-color: green;
 }
