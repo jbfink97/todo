@@ -1,6 +1,6 @@
 import {Task, Project} from './classes';
 import {tasks, projects} from './index';
-import{addProject, renderProjects, renderDisplay} from './functions';
+import{addProject, renderProjectsSideBar, renderDisplay, renderAllProjects, renderDueToday} from './functions';
 
 export default function initialPage() {
     const content = document.getElementById('content');
@@ -47,13 +47,18 @@ export default function initialPage() {
     projects.push(defaultProject);
     sidebar.append(projectList);
 
+    const dueTodayBtn = document.createElement('button');
+    dueTodayBtn.type = 'button';
+    dueTodayBtn.textContent = 'Projects Due Today';
+    dueTodayBtn.addEventListener('click', renderDueToday);
+
     const showAllBtn = document.createElement('button');
     showAllBtn.type = 'button';
     showAllBtn.textContent = 'Show All Projects';
-    //showAllBtn.addEventListener('click',)
+    showAllBtn.addEventListener('click', renderAllProjects);
 
-    sidebar.append(showAllBtn);
-    renderProjects();
+    sidebar.append(dueTodayBtn, showAllBtn);
+    renderProjectsSideBar();
     renderDisplay(projects[0].name);
 
 

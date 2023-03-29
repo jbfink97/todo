@@ -98,3 +98,7 @@ input {
 .complete {
     background-color: green;
 }
+
+#newTaskForm.hidden {
+    display: none;
+}

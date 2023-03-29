@@ -1,5 +1,6 @@
-import {projects, tasks} from './index';
-import {Project, Task} from './classes';
+import { projects, tasks } from './index';
+import { Project, Task } from './classes';
+import { format } from 'date-fns';
 
 
 function addProject() {
@@ -15,12 +16,12 @@ function addProject() {
         projects.push(newProject);
         let projectList = document.getElementById('projectList');
         projectList.textContent = '';
-        renderProjects();
+        renderProjectsSideBar();
     }
     document.getElementById('newProjectForm').reset();
 }
 
-function renderProjects() {
+function renderProjectsSideBar() {
     const projectList = document.getElementById('projectList');
     projectList.textContent = '';
     for (let i = 0; i < projects.length; i++) {
@@ -39,19 +40,18 @@ function renderProjects() {
         projectButton.addEventListener('click', () => {
             renderDisplay(project.name);
         })
-        
+
         const deleteProjectButton = document.createElement('button');
         deleteProjectButton.textContent = 'Delete Project';
         deleteProjectButton.type = 'button';
         deleteProjectButton.addEventListener('click', () => {
             projects.splice(project.index, 1);
-            renderProjects();
+            renderProjectsSideBar();
             if (projects.length < 1) {
-                renderDisplay('');
+                renderAllProjects();
             } else if (document.getElementById('currentProject').classList.contains(project.name)) {
                 renderDisplay(projects[0].name);
             }
-            //showAll();
         })
         projectDiv.append(projectButton, deleteProjectButton);
         projectList.appendChild(projectDiv);
@@ -196,4 +196,42 @@ function individualTask(task) {
 
 }
 
-export {addProject, renderProjects, renderDisplay}
+// need to add all projects and due today
+function renderAllProjects() {
+    document.getElementById('taskList').textContent = '';
+    const header = document.getElementById('currentProject');
+    header.className = '';
+    header.textContent = 'All Projects:';
+
+    projects.forEach((project) => {
+        const projectNameDiv = document.createElement('div');
+        projectNameDiv.textContent = `${project.name}`;
+        projectNameDiv.classList.add('projectList');
+        projectNameDiv.id = project;
+        const taskListDiv = document.getElementById('taskList');
+
+        tasks.forEach((task) => {
+            if (task.project == project.name) {
+                projectNameDiv.append(individualTask(task, project));
+            }
+        })
+        taskListDiv.append(projectNameDiv);
+    })
+
+    document.getElementById('newTaskForm').classList.add('hidden');
+}
+
+function renderDueToday() {
+    document.getElementById('taskList').textContent = '';
+    const header = document.getElementById('currentProject');
+    header.textContent = 'Projects Due Today:';
+
+    const date = new Date();
+    let year = format(date, 'yyyy');
+    let month = format(date, 'MM');
+    let day = format(date, 'dd')
+
+
+}
+
+export { addProject, renderProjectsSideBar, renderDisplay, renderAllProjects, renderDueToday }
