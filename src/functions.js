@@ -204,18 +204,28 @@ function renderAllProjects() {
     header.textContent = 'All Projects:';
 
     projects.forEach((project) => {
-        const projectNameDiv = document.createElement('div');
-        projectNameDiv.textContent = `${project.name}`;
-        projectNameDiv.classList.add('projectList');
-        projectNameDiv.id = project;
+
+        const projectDiv = document.createElement('div');
+        const projectName = document.createElement('h2');
+        projectName.textContent = `Project: ${project.name}`;
+        projectDiv.classList.add('projectList');
+        projectDiv.id = project;
+        projectDiv.append(projectName);
+        projectName.classList.add('projectName');
+
+
+        // const projectNameDiv = document.createElement('div');
+        // projectNameDiv.textContent = `${project.name}`;
+        // projectNameDiv.classList.add('projectList');
+        // projectNameDiv.id = project;
         const taskListDiv = document.getElementById('taskList');
 
         tasks.forEach((task) => {
             if (task.project == project.name) {
-                projectNameDiv.append(individualTask(task, project));
+                projectDiv.append(individualTask(task, project));
             }
         })
-        taskListDiv.append(projectNameDiv);
+        taskListDiv.append(projectDiv);
     })
 
     document.getElementById('newTaskForm').classList.add('hidden');
@@ -230,6 +240,34 @@ function renderDueToday() {
     let year = format(date, 'yyyy');
     let month = format(date, 'MM');
     let day = format(date, 'dd')
+    const currentDate = `${year}-${month}-${day}`;
+    let todaysProjects = [];
+
+    tasks.forEach((task) => {
+        if (task.dueDate === currentDate) {
+            if (!todaysProjects.includes(task.project)) {
+                todaysProjects.push(task.project);
+            }
+        }
+    })
+    console.log(todaysProjects);
+
+    todaysProjects.forEach((project) => {
+        const projectDiv = document.createElement('div');
+        const projectName = document.createElement('h2');
+        projectName.textContent = `Project: ${project}`;
+        projectDiv.classList.add('projectList');
+        projectDiv.id = project;
+        projectDiv.append(projectName);
+        projectName.classList.add('projectName');
+        tasks.forEach((task) => {
+            if (task.project == project && task.dueDate == currentDate) {
+                projectDiv.append(individualTask(task, project));
+            }
+        })
+        document.getElementById('taskList').append(projectDiv);
+    })
+    document.getElementById('newTaskForm').classList.add('hidden');
 
 
 }
