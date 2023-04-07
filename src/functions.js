@@ -141,7 +141,6 @@ function addTask() {
     const dueDate = document.getElementById('dueDate').value;
     const priority = document.getElementById('priority').value;
     const task = new Task(project, description, dueDate, priority);
-    task.status = 'incomplete';
     task.index = tasks.length;
 
     if (description.length < 1) {
@@ -171,6 +170,11 @@ function individualTask(task) {
     const completedBtn = document.createElement('button');
     completedBtn.type = 'button';
     completedBtn.textContent = 'Mark complete';
+
+    if (task.status != 'incomplete') {
+        individualTaskDiv.classList.add('complete');
+        completedBtn.textContent = 'Complete';
+    }
     completedBtn.addEventListener('click', () => {
         if (task.status == 'incomplete') {
             task.status = 'complete';
