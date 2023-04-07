@@ -93,6 +93,7 @@ function renderDisplay(name) {
     const dateDiv = document.createElement('div');
     dateDiv.append(dateLabel, dateInput);
 
+    // dropdown
     const priorityLevels = ['high', 'medium', 'low'];
     const select = document.createElement('select');
     for (const level of priorityLevels) {
@@ -182,6 +183,74 @@ function individualTask(task) {
         }
     })
 
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit Task';
+    const modal = document.querySelector('.modal');
+    editBtn.addEventListener('click', () => {
+        document.querySelector('.modal-header').textContent = '';
+        document.querySelector('.modal-content').textContent = '';
+        document.querySelector('.modal-footer').textContent = '';
+
+        const exitBtn = document.createElement('span');
+        exitBtn.innerHTML = '&times';
+        exitBtn.className = 'close-btn';
+        document.querySelector('.modal-header').append(exitBtn);
+
+        modal.style.display = 'block';
+        const modalHeader = document.createElement('h2');
+        modalHeader.textContent = `Task: ${task.description}`;
+        document.querySelector('.modal-header').append(modalHeader);
+
+        const modalBody = document.querySelector('.modal-content');
+        const form = document.createElement('form');
+        form.id = 'editTask';
+        const input = document.createElement('input');
+        input.id = 'editDescription';
+        input.value = task.description;
+        const dateInput = document.createElement('input');
+        dateInput.type = 'date';
+        dateInput.id = 'editDate';
+        dateInput.value = task.dueDate;
+        form.append(input, dateInput);
+        modalBody.append(form)
+
+        const priorityLevels = ['high', 'medium', 'low'];
+        const select = document.createElement('select');
+        for (const level of priorityLevels) {
+            const option = document.createElement('option');
+            option.value = level;
+            option.text = level.charAt(0).toUpperCase() + level.slice(1);
+            select.appendChild(option);
+        }
+        select.id = 'editPriority';
+        select.value = task.priority;
+        form.append(select);
+
+        const modalFooter = document.querySelector('.modal-footer');
+        const changeBtn = document.createElement('button');
+        changeBtn.type = 'button';
+        changeBtn.htmlFor = 'editTask';
+        changeBtn.textContent = 'Confirm Edit';
+        modalFooter.append(changeBtn);
+        changeBtn.addEventListener('click', () => {
+            task.description = input.value;
+            task.dueDate = dateInput.value;
+            task.priority = select.value;
+            modal.style.display = 'none';
+            updateTasks();
+            renderDisplay(task.project);
+        })
+
+        exitBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        })
+        window.addEventListener('click', (d) => {
+            if (d.target == modal) {
+                modal.style.display = 'none';
+            }
+        })
+    })
+
 
     const removeBtn = document.createElement('button');
     removeBtn.type = 'button';
@@ -189,9 +258,10 @@ function individualTask(task) {
     removeBtn.addEventListener('click', () => {
         tasks.splice(task.index, 1);
         updateTasks();
+        renderDisplay(task.project);
     })
 
-    individualTaskDiv.append(descriptionDiv, dateDiv, priorityDiv, completedBtn, removeBtn);
+    individualTaskDiv.append(descriptionDiv, dateDiv, priorityDiv, completedBtn, editBtn, removeBtn);
     return individualTaskDiv;
 
 }
@@ -250,7 +320,6 @@ function renderDueToday() {
             }
         }
     })
-    console.log(todaysProjects);
 
     todaysProjects.forEach((project) => {
         const projectDiv = document.createElement('div');
