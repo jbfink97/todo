@@ -1,6 +1,8 @@
-import {Task, Project} from './classes';
+//import Task from './classes/task'
+import Project from './classes/project';
 import {tasks, projects} from './index';
-import{addProject, renderProjectsSideBar, renderDisplay, renderAllProjects, renderDueToday} from './functions';
+import{renderProjectsSideBar, renderDisplay, renderAllProjects, renderDueToday} from './functions/DOMmanipulation';
+import { addProject } from './functions/dataStructureManipulation';
 
 export default function initialPage() {
     const content = document.getElementById('content');
@@ -36,7 +38,7 @@ export default function initialPage() {
     input.placeholder = 'New project name';
 
     const newProjectBtn = document.createElement('button');
-    newProjectBtn.type = 'button'; ///might need to change this to button. be sure to add prevent default
+    newProjectBtn.type = 'button'; 
     newProjectBtn.textContent = 'Add';
     newProjectBtn.htmlFor = 'newProjectInput';
     newProjectBtn.addEventListener('click', addProject)
