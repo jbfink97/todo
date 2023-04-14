@@ -1,5 +1,5 @@
-import {tasks, projects} from '../index';
-import {addTask, updateTasks} from './dataStructureManipulation'
+import { tasks, projects } from '../index';
+import { addTask, updateTasks } from './dataStructureManipulation'
 import { format } from 'date-fns';
 
 function renderProjectsSideBar() {
@@ -27,7 +27,19 @@ function renderProjectsSideBar() {
         deleteProjectButton.type = 'button';
         deleteProjectButton.addEventListener('click', () => {
             projects.splice(project.index, 1);
+            let projectNames = projects.map(project => project.name);
+            let newTasks = [];
+            tasks.forEach((task) => {
+                if (projectNames.includes(task.project)) {
+                    newTasks.push(task);
+                }
+            })
+            tasks = newTasks;
+            for (let i = 0; i < tasks.length; i++) {
+                tasks[i].index = i;
+            }
             renderProjectsSideBar();
+            renderAllProjects();
             if (projects.length < 1) {
                 renderAllProjects();
             } else if (document.getElementById('currentProject').classList.contains(project.name)) {
@@ -240,11 +252,6 @@ function renderAllProjects() {
         projectDiv.append(projectName);
         projectName.classList.add('projectName');
 
-
-        // const projectNameDiv = document.createElement('div');
-        // projectNameDiv.textContent = `${project.name}`;
-        // projectNameDiv.classList.add('projectList');
-        // projectNameDiv.id = project;
         const taskListDiv = document.getElementById('taskList');
 
         tasks.forEach((task) => {
@@ -263,6 +270,8 @@ function renderDueToday() {
     const header = document.getElementById('currentProject');
     header.className = 'dueToday';
     header.textContent = 'Projects Due Today:';
+    console.log(projects);
+    console.log(tasks);
 
     const date = new Date();
     let year = format(date, 'yyyy');
@@ -293,10 +302,11 @@ function renderDueToday() {
             }
         })
         document.getElementById('taskList').append(projectDiv);
+
     })
     document.getElementById('newTaskForm').classList.add('hidden');
 
 
 }
 
-export {renderProjectsSideBar, renderDisplay, individualTask, renderAllProjects, renderDueToday }
+export { renderProjectsSideBar, renderDisplay, individualTask, renderAllProjects, renderDueToday }

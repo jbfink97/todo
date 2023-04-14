@@ -1,2 +1,2 @@
 # todo
-To do list, made while following along with The Odin Project. Uses modules, classes, and webpack
+To do list web appt. Focuses on the use of modules, webpack, and classes.
