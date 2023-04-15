@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "gh-pages --dist 'dist' --branch 'release'"
+    "build": "webpack",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -16,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/jbfink97/todo/issues"
   },
-  "homepage": "https://github.com/jbfink97/todo#readme",
+  "homepage": "https://github.com/jbfink97/todo",
   "dependencies": {
     "date-fns": "^2.29.3",
     "watch": "^1.0.2",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "css-loader": "^6.7.3",
+    "gh-pages": "^5.0.0",
     "style-loader": "^3.3.1"
   }
 }
