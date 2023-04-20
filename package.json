@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/jbfink97/todo/issues"
   },
-  "homepage": "https://github.com/jbfink97/todo",
+  "homepage": "https://jbfink97.github.io/todo",
   "dependencies": {
     "date-fns": "^2.29.3",
     "watch": "^1.0.2"
