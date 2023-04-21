@@ -35,8 +35,9 @@ button {
 }
 
 #main {
-    display: flex;
+    display: grid;
     flex-grow: 10;
+    grid-template-columns: 1fr 14fr;
 }
 
 #sidebar,
